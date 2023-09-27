@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:note_todo/bloc/todo_bloc.dart';
 import 'package:note_todo/bloc/todo_event.dart';
 import 'package:note_todo/model/todo.dart';
@@ -15,6 +16,7 @@ class TodoItem extends StatefulWidget {
 
 class _TodoItemState extends State<TodoItem> {
   bool value = true;
+  DateFormat dateFormat = DateFormat("dd/MM/yyyy HH:mm");
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -45,13 +47,22 @@ class _TodoItemState extends State<TodoItem> {
                     borderRadius: BorderRadius.circular(5)
                 ),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Checkbox(
-                        value: widget.todo.statusTodo == StatusTodo.unfinished ? false : true,
-                        onChanged: (bool? value){
-                          context.read<TodoBloc>().add(ChangeStatusEvent(value! == true? StatusTodo.finish : StatusTodo.unfinished, widget.index));
-                        }),
-                    Text(widget.todo.content,)
+                    Row(
+
+                      children: [
+                        Checkbox(
+                            value: widget.todo.statusTodo == StatusTodo.unfinished ? false : true,
+                            onChanged: (bool? value){
+                              context.read<TodoBloc>().add(ChangeStatusEvent(value! == true? StatusTodo.finish : StatusTodo.unfinished, widget.index));
+                            }),
+                        Text(widget.todo.content,),
+                      ],
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(right: 10),
+                        child: Text(dateFormat.format(widget.todo.time), style: TextStyle(color: Colors.grey),)),
 
                   ],
                 ),

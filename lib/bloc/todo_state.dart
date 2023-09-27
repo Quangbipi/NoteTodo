@@ -63,11 +63,22 @@ class DeleteSuccess extends TodoState{
   List<Object?> get props => [todos];
 }
 
-class SortTodo extends TodoState{
-  SortTodo sortTodo;
+class SortTodoSuccess extends TodoState{
 
-  SortTodo(this.sortTodo);
+  List<Todo> todos;
+
+  SortTodoSuccess(this.todos);
   @override
   // TODO: implement props
-  List<Object?> get props => [];
+  List<Object?> get props => [todos];
+}
+
+class SortTodoFailed extends TodoState{
+
+  String e;
+
+  SortTodoFailed(this.e);
+  @override
+  // TODO: implement props
+  List<Object?> get props => [e];
 }
